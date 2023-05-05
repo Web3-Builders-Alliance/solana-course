@@ -5,7 +5,7 @@
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  assetPrefix: isProd ? '/Web3-Builders-Alliance/enrollment-check/' : '',
+  assetPrefix: isProd ? '/Web3-Builders-Alliance/solana-course/' : '',
   images: {
     unoptimized: true,
   },
