@@ -13,6 +13,7 @@ interface AccountData {
     owner: string,
     address: string,
     github: string,
+    avatar: string,
     repo: string
 }
 
@@ -40,14 +41,18 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
             });
             console.log(data);
             const bytes = Buffer.from(data.result?.value?.data[0], 'base64');
-            const github = bytes.subarray(12,51).toString("utf-8").replace("\0", "");
+            const github_string = bytes.subarray(12,51).toString("utf-8").replace("\0", "");
             const owner = new PublicKey(bytes.subarray(51, 83)).toBase58();
-            const { data: github_repo } = await axios.get(`https://api.github.com/repos/Web3-Builders-Alliance/${github}-Solana-Q1-2023`);
+            const { data: github_user } = await axios.get(`https://api.github.com/users/${github_string}`);
+            const github = github_user.name || null;
+            const avatar = github_user.avatar_url || null;
+            const { data: github_repo } = await axios.get(`https://api.github.com/repos/Web3-Builders-Alliance/${github}-Solana-Q2-2023`)
             const repo = github_repo.name || null
             setAccountData({
                 owner,
                 address,
                 github,
+                avatar,
                 repo
             })
             setLoading(false);
@@ -65,10 +70,15 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
         {loading ? 
         <Spinner /> : 
         accountData ?    
-            <>         
+            <>   
+                {
+                    accountData.avatar ? <img src={accountData.avatar} /> : null
+                }
                 <Tick>Account created</Tick>
                 <Tick>Owner match</Tick>
-                <Tick>Github:<code className="text-sm ml-2 font-bold bg-slate-700 px-2 py-1">{ accountData.github }</code></Tick>
+                {
+                    accountData.avatar ? <Tick>Github:<code className="text-sm ml-2 font-bold bg-slate-700 px-2 py-1">{ accountData.github }</code></Tick> : <Cross>Github user <code className="text-sm ml-2 font-bold bg-slate-700 px-2 py-1">{ accountData.github }</code> not found</Cross>
+                }
                 {
                     accountData.repo ? <Tick>{accountData.repo}</Tick> : <Cross>Git repo not configured yet</Cross>
                 }
