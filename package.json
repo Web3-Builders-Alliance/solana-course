@@ -1,8 +1,8 @@
 {
-    "name": "@solana/wallet-adapter-nextjs-starter",
-    "version": "0.8.17",
-    "author": "Solana Maintainers <maintainers@solana.foundation>",
-    "repository": "https://github.com/solana-labs/wallet-adapter",
+    "name": "solana-course",
+    "version": "0.1.0",
+    "author": "Dean Little <dean@web3builders.dev>",
+    "repository": "https://github.com/Web3-Builders-Alliance/solana-course",
     "license": "Apache-2.0",
     "publishConfig": {
         "access": "public"
@@ -33,11 +33,11 @@
         "lint": "prettier --check 'src/{*,**/*}.{ts,tsx,js,jsx,json}' && eslint && next lint"
     },
     "dependencies": {
-        "@solana/wallet-adapter-base": "workspace:^",
-        "@solana/wallet-adapter-react": "workspace:^0.15.30",
-        "@solana/wallet-adapter-react-ui": "workspace:^0.9.29",
-        "@solana/wallet-adapter-wallets": "workspace:^0.19.15",
-        "next": "^12.3.4",
+        "@solana/wallet-adapter-base": "^0.9.22",
+        "@solana/wallet-adapter-react": "^0.15.32",
+        "@solana/wallet-adapter-react-ui": "^0.9.31",
+        "@solana/wallet-adapter-wallets": "^0.19.16",
+        "next": "^13.4.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },

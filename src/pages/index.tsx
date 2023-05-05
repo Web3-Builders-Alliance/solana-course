@@ -14,7 +14,7 @@ export default function Index() {
             <div className="relative bg-slate-800 border border-slate-700 px-4 py-4 my-auto shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
                 <div className="mx-auto max-w-md">
                     <div className="space-y-6 py-8 text-base leading-7 text-slate-200">
-                        <Image src="/logo.svg" className="w-24 mx-auto" alt="Web3 Builders Alliance" />
+                        <img src="/logo.svg" className="w-24 mx-auto" alt="Web3 Builders Alliance" />
                     </div>
                     <div className="space-y-6 py-8 text-base leading-7 text-slate-200">
                         <Wallets />
