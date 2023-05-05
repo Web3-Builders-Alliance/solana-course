@@ -6,6 +6,9 @@ const Wallets = () => {
 
   return !publicKey ? (
     <div className="flex flex-col gap-4">
+      <div className="pb-4 text-base leading-7 text-slate-200">
+        <img src="/logo.svg" className="w-24 mx-auto" alt="Web3 Builders Alliance" />
+      </div>
       {wallets.filter((wallet) => wallet.readyState === "Installed").length >
       0 ? (
         wallets
@@ -16,7 +19,9 @@ const Wallets = () => {
               onClick={() => select(wallet.adapter.name)}
               className="inline-flex items-center px-4 py-2 text-md font-medium leading-5 text-center text-slate-200 bg-slate-700 rounded-md shadow-md transition duration-150 ease-in-out hover:bg-slate-400 focus:outline-none focus:shadow-outline-slate focus:border-slate-300 active:bg-slate-400"
             >
-              <img
+              <Image
+                width={16}
+                height={16}
                 src={wallet.adapter.icon}
                 alt={wallet.adapter.name}
                 className="h-6 w-6"

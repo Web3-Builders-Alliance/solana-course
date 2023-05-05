@@ -4,6 +4,7 @@ import axios from "axios";
 import Tick from "./Tick";
 import Cross from "./Cross";
 import Spinner from "./Spinner";
+import Image from "next/image";
 
 interface Props {
   publicKey?: string;
@@ -18,7 +19,7 @@ interface AccountData {
 }
 
 const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
-    const [accountData, setAccountData] = useState<AccountData | null>(null);
+    const [accountData, setAccountData] = useState<AccountData>({ owner: "", address: "", github: "", avatar: "", repo: ""});
     const [loading, setLoading] = useState<boolean>(false);
     useEffect(() => {
         setLoading(true);
@@ -43,22 +44,29 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
             const bytes = Buffer.from(data.result?.value?.data[0], 'base64');
             const github_string = bytes.subarray(12,51).toString("utf-8").replace("\0", "");
             const owner = new PublicKey(bytes.subarray(51, 83)).toBase58();
+            setAccountData({
+                ...accountData,
+                owner,
+                address,
+                github: github_string
+            })
             const { data: github_user } = await axios.get(`https://api.github.com/users/${github_string}`);
-            const github = github_user.name || null;
+            const github = github_user.login || null;
             const avatar = github_user.avatar_url || null;
+            setAccountData({
+                ...accountData,
+                github,
+                avatar
+            })
             const { data: github_repo } = await axios.get(`https://api.github.com/repos/Web3-Builders-Alliance/${github}-Solana-Q2-2023`)
             const repo = github_repo.name || null
             setAccountData({
-                owner,
-                address,
-                github,
-                avatar,
+                ...accountData,
                 repo
             })
             setLoading(false);
         }
         fetchAccountData().catch((e) => {
-            setAccountData(null)
             setLoading(false)
             console.error(e)
         });
@@ -72,7 +80,7 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
         accountData ?    
             <>   
                 {
-                    accountData.avatar ? <img src={accountData.avatar} /> : null
+                    accountData.avatar && accountData.github ? <Image width={50} height={50} alt={accountData.github} className="w-20 rounded-md mx-auto mb-10 border border-slate-600" src={accountData.avatar} /> : null
                 }
                 <Tick>Account created</Tick>
                 <Tick>Owner match</Tick>
