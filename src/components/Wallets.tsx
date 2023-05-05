@@ -31,7 +31,7 @@ const Wallets = () => {
             </button>
           ))
       ) : (
-        <p>No wallet found. Please download a supported Solana wallet</p>
+        <p className="text-center"><span className="font-bold text-lg block pb-4">Wallet not found.</span>Please activate your existing wallet extension or install a supported Solana wallet</p>
       )}
     </div>
   ) : null
