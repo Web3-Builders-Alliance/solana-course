@@ -16,14 +16,12 @@ interface AccountData {
 }
 
 const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
-    if(!publicKey) return null;
     const [accountData, setAccountData] = useState<AccountData | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-
     useEffect(() => {
         setLoading(true);
         const fetchAccountData = async () => {
-            const pubkey = new PublicKey(publicKey)
+            const pubkey = new PublicKey(publicKey!)
             const programId = new PublicKey('HC2oqz2p6DEWfrahenqdq2moUcga9c9biqRBcdK3XKU1')
             const prereq = new TextEncoder().encode('prereq')
             const [ pda, _bump ] = PublicKey.findProgramAddressSync([prereq, pubkey.toBytes()], programId)
@@ -56,6 +54,8 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
             console.error(e)
         });
     }, [publicKey]);
+
+    if(!publicKey) return null;
 
     return <ul className="space-y-3">
         {loading ? 
