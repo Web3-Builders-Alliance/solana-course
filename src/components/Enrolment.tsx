@@ -88,7 +88,7 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
                     accountData.avatar ? <Tick>Github:<code className="text-sm ml-2 font-bold bg-slate-700 px-2 py-1">{ accountData.github }</code></Tick> : <Cross>Github user <code className="text-sm ml-2 font-bold bg-slate-700 px-2 py-1">{ accountData.github }</code> not found</Cross>
                 }
                 {
-                    accountData.repo ? <Tick>{accountData.repo}</Tick> : <Cross>Git repo not configured yet</Cross>
+                    accountData.repo ? <Tick>Repo: {accountData.repo}</Tick> : <Cross>Git repo not configured yet</Cross>
                 }
             </>
         :
