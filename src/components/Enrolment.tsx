@@ -80,7 +80,7 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
         accountData ?    
             <>   
                 {
-                    accountData.avatar && accountData.github ? <Image width={50} height={50} alt={accountData.github} className="w-20 rounded-md mx-auto mb-10 border border-slate-600" src={accountData.avatar} /> : null
+                    accountData.avatar && accountData.github ? <img alt={accountData.github} className="w-20 rounded-md mx-auto mb-10 border border-slate-600" src={accountData.avatar} /> : null
                 }
                 <Tick>Account created</Tick>
                 <Tick>Owner match</Tick>
