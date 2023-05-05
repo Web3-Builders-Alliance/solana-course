@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import Head from "next/head";
 import type { AppProps } from "next/app";
 import {
   ConnectionProvider,
@@ -12,6 +13,7 @@ import {
   MathWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
+import { prefix } from "../utils/prefix";
 
 export default function App({ Component, pageProps }: AppProps) {
   const wallets = useMemo(
@@ -27,10 +29,15 @@ export default function App({ Component, pageProps }: AppProps) {
   const endpoint = useMemo(() => clusterApiUrl("devnet"), []);
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
-        <WalletProvider wallets={wallets} autoConnect>
-            <Component {...pageProps} />
-        </WalletProvider>
-    </ConnectionProvider>
+    <>
+      <Head>
+        <link rel="shortcut icon" href={`${prefix}/favicon.ico`} />
+      </Head>
+      <ConnectionProvider endpoint={endpoint}>
+          <WalletProvider wallets={wallets} autoConnect>
+              <Component {...pageProps} />
+          </WalletProvider>
+      </ConnectionProvider>
+    </>
   );
 }

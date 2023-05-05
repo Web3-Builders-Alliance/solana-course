@@ -11,6 +11,9 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
 
+    env:
+      NEXT_PUBLIC_BASE_PATH: /solana-course
+
     steps:
       - uses: actions/checkout@v3
 

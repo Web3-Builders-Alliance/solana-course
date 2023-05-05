@@ -1,5 +1,6 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
+import { prefix } from '../utils/prefix.js';
 
 const Wallets = () => {
   const { select, wallets, publicKey, disconnect } = useWallet();
@@ -7,7 +8,7 @@ const Wallets = () => {
   return !publicKey ? (
     <div className="flex flex-col gap-4">
       <div className="pb-4 text-base leading-7 text-slate-200">
-        <img src={`./logo.svg`} className="w-24 mx-auto" alt="Web3 Builders Alliance" />
+        <img src={`${prefix}/logo.svg`} className="w-24 mx-auto" alt="Web3 Builders Alliance" />
       </div>
       {wallets.filter((wallet) => wallet.readyState === "Installed").length >
       0 ? (
