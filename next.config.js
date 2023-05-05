@@ -1,4 +1,12 @@
-/** @type {import('next').NextConfig} */
+// /** @type {import('next').NextConfig} */
+// // module.exports = {
+// //     reactStrictMode: true,
+// // };
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
-  reactStrictMode: true,
+  assetPrefix: isProd ? '/Web3-Builders-Alliance/enrollment-check/' : '',
+  images: {
+    unoptimized: true,
+  },
 }
