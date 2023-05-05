@@ -12,7 +12,8 @@ interface Props {
 interface AccountData {
     owner: string,
     address: string,
-    github: string
+    github: string,
+    repo: string
 }
 
 const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
@@ -41,10 +42,13 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
             const bytes = Buffer.from(data.result?.value?.data[0], 'base64');
             const github = bytes.subarray(12,51).toString("utf-8").replace("\0", "");
             const owner = new PublicKey(bytes.subarray(51, 83)).toBase58();
+            const { data: github_repo } = await axios.get(`https://api.github.com/repos/Web3-Builders-Alliance/${github}-Solana-Q1-2023`);
+            const repo = github_repo.name || null
             setAccountData({
                 owner,
                 address,
-                github
+                github,
+                repo
             })
             setLoading(false);
         }
@@ -65,6 +69,9 @@ const ExampleComponent: React.FC<Props> = ({ publicKey }) => {
                 <Tick>Account created</Tick>
                 <Tick>Owner match</Tick>
                 <Tick>Github:<code className="text-sm ml-2 font-bold bg-slate-700 px-2 py-1">{ accountData.github }</code></Tick>
+                {
+                    accountData.repo ? <Tick>{accountData.repo}</Tick> : <Cross>Git repo not configured yet</Cross>
+                }
             </>
         :
             <Cross>Account not found</Cross>
