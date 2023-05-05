@@ -10,4 +10,5 @@ module.exports = {
   images: {
     unoptimized: true,
   },
+  publicRuntimeConfig: { basePath: process.env.BASE_PATH || '' }
 }
